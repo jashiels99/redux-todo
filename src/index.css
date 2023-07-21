@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .btn {
+        @apply inline-flex justify-center px-4 py-2 text-sm font-medium border border-transparent rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    }
+
+    .primary {
+        @apply text-purple-100 bg-purple-600 hover:bg-purple-500 focus-visible:ring-purple-500;
+    }
+
+    .secondary {
+        @apply text-purple-900 bg-purple-100 hover:bg-purple-200 focus-visible:ring-purple-500;
+    }
+}
