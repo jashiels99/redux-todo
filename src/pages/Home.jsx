@@ -2,9 +2,27 @@ import { useSelector } from 'react-redux';
 import TodoCard from '../components/TodoCard';
 import AddTodoDialog from '../components/AddTodoDialog';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
+import { useMemo } from 'react';
 
 const Home = () => {
     const todos = useSelector((state) => state.todos);
+
+    const priorityOrder = {
+        High: 3,
+        Medium: 2,
+        Low: 1,
+    };
+
+    const sortedTodos = useMemo(
+        () =>
+            todos.slice().sort((a, b) => {
+                if (a.priority === b.priority) return 0;
+                if (priorityOrder[a.priority] > priorityOrder[b.priority])
+                    return -1;
+                return 1;
+            }),
+        [todos]
+    );
 
     return (
         <>
@@ -12,12 +30,12 @@ const Home = () => {
                 <h1 className="text-2xl">Tasks</h1>
                 <AddTodoDialog />
             </div>
-            {todos.length > 0 ? (
+            {sortedTodos.length > 0 ? (
                 <ul
                     className="grid grid-cols-1 gap-4 mt-6 md:grid-cols-2"
                     role="list"
                 >
-                    {todos.map((todo, index) => (
+                    {sortedTodos.map((todo, index) => (
                         <TodoCard todo={todo} key={index} />
                     ))}
                 </ul>
